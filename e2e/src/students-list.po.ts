@@ -1,5 +1,4 @@
 import { browser, by, element } from "protractor";
-import { all } from "q";
 
 export interface UserInfoModel {
   firstName: string;
