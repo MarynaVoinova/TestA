@@ -30,8 +30,8 @@ export abstract class BasePageObject {
     );
   }
 
-  protected waitUntilVisibleAndClickable(finder: ElementFinder) {
-    this.waitUntilVisible(finder);
-    this.waitUntilClickable(finder);
+  protected async waitUntilVisibleAndClickable(finder: ElementFinder) {
+    await this.waitUntilVisible(finder);
+    return await this.waitUntilClickable(finder);
   }
 }

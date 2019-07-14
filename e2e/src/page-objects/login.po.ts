@@ -9,11 +9,15 @@ export class LoginPage extends BasePageObject {
   }
 
   async login(email: string, password: string) {
-    element(by.css("input[formControlName=email]")).sendKeys(email);
+    const emailFormControlFinder = element(by.css("input[formControlName=email]"));
+    await this.waitUntilVisibleAndClickable(emailFormControlFinder);
+    emailFormControlFinder.sendKeys(email);
     element(by.css("input[formControlName=password]")).sendKeys(password);
     const submitButton = element(by.css("app-login button[type=submit"));
     submitButton.getAttribute("disabled");
-    await element(by.css("app-login button[type=submit")).click();
+    const loginButtonFinder = element(by.css("app-login button[type=submit"));
+    await this.waitUntilVisibleAndClickable(loginButtonFinder);
+    await loginButtonFinder.click();
   }
 
   isLoginButtonEnabled() {

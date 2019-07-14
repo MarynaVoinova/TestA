@@ -33,10 +33,14 @@ fdescribe("test side menu", () => {
   });
 
   it("should navigate to add student page, user list and logout from side bar menu", async () => {
+    loginPage = new LoginPage();
+    loginPage.navigateTo();
+    await loginPage.login("admin@yopmail.com", "admin123");
+
     sideBar = new SideBar();
     await sideBar.clickAddNewUserMenu();
     addStudentPage = new AddStudentPage();
-    await sideBar.clickAddNewUserMenu();
+    // await sideBar.clickAddNewUserMenu();
     expect(addStudentPage.isPresent()).toBeTruthy();
     await sideBar.clickUserListMenu();
     const studentList = new StudentList();
