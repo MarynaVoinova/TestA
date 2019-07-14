@@ -24,7 +24,6 @@ fdescribe("test side menu", () => {
     addStudentPage = new AddStudentPage();
     expect(addStudentPage.isPresent()).toBeTruthy();
   });
-  /*
 
   it("should navigate to logout from side bar menu", async () => {
     sideBar = new SideBar();
@@ -46,5 +45,4 @@ fdescribe("test side menu", () => {
     //check if login page is shown
     expect(loginPage.isPresent()).toBeTruthy();
   });
-  */
 });

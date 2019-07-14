@@ -22,4 +22,16 @@ export abstract class BasePageObject {
       `Element ${finder} taking too long to be visible`
     );
   }
+  protected waitUntilClickable(finder: ElementFinder) {
+    return browser.wait(
+      ExpectedConditions.elementToBeClickable(finder),
+      5000,
+      `Element ${finder} taking too long to be visible`
+    );
+  }
+
+  protected waitUntilVisibleAndClickable(finder: ElementFinder) {
+    this.waitUntilVisible(finder);
+    this.waitUntilClickable(finder);
+  }
 }

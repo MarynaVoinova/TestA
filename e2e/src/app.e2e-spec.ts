@@ -17,7 +17,7 @@ describe("workspace-project App", () => {
     loginPage.login("admin@yopmail.com", "admin123");
   });
 
-  it("should add a new student and check that the student exists in the  student list", async () => {
+  it("should add a new student and check that the student exists in the student list", async () => {
     addStudentPage = new AddStudentPage();
     //go to adding Student via URL:
     addStudentPage.navigateTo();

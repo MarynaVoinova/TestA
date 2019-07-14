@@ -7,22 +7,13 @@ export class SideBar extends BasePageObject {
 
   async clickUserListMenu() {
     const addUserMenu = element(by.css("#mySidebar > a:nth-child(2)"));
-    await this.waitUntilVisible(addUserMenu);
+    await this.waitUntilVisibleAndClickable(addUserMenu);
     await addUserMenu.click();
   }
 
   async clickAddNewUserMenu() {
     const clickAddNewUserMenu = element(by.css("#mySidebar > a:nth-child(3)"));
-    await browser.wait(
-      ExpectedConditions.visibilityOf(clickAddNewUserMenu),
-      5000,
-      `Element ${clickAddNewUserMenu} taking too long to be visible`
-    );
-    await browser.wait(
-      ExpectedConditions.elementToBeClickable(clickAddNewUserMenu),
-      5000,
-      `Element ${clickAddNewUserMenu} taking too long to be visible`
-    );
+    await this.waitUntilVisibleAndClickable(clickAddNewUserMenu);
     // await this.waitUntilVisible(clickAddNewUserMenu);
     //const getMenuName = await clickAddNewUserMenu.getText();
     await clickAddNewUserMenu.click();
@@ -30,7 +21,7 @@ export class SideBar extends BasePageObject {
 
   async clickLogoutMenu() {
     const LogoutMenu = element(by.css("#mySidebar > a:nth-child(4)"));
-    await this.waitUntilVisible(LogoutMenu);
+    await this.waitUntilVisibleAndClickable(LogoutMenu);
     await LogoutMenu.click();
   }
 }
