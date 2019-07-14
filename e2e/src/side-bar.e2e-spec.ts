@@ -1,11 +1,11 @@
 import { LoginPage } from './page-objects/login.po';
-import { AddStudentPage } from './page-objects/add-student.po';
+import { StudentRegistrationForm } from './page-objects/student-registration-form.po';
 import { StudentList } from './page-objects/students-list.po';
 import { SideBar } from './page-objects/side-bar.po';
 
-fdescribe('side bar menu', () => {
+describe('side bar menu', () => {
   let loginPage: LoginPage;
-  let addStudentPage: AddStudentPage;
+  let addStudentPage: StudentRegistrationForm;
   let sideBar: SideBar;
 
   beforeAll(async () => {
@@ -17,7 +17,7 @@ fdescribe('side bar menu', () => {
 
   it('should navigate to student registration', async () => {
     await sideBar.clickAddNewUserMenu();
-    addStudentPage = new AddStudentPage();
+    addStudentPage = new StudentRegistrationForm();
     // check if add student page is shown
     expect(addStudentPage.isPresent()).toBeTruthy();
     // check that menu item is selected

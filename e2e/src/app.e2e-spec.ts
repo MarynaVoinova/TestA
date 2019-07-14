@@ -1,11 +1,11 @@
 import { LoginPage } from "./page-objects/login.po";
-import { AddStudentPage } from "./page-objects/add-student.po";
+import { StudentRegistrationForm } from "./page-objects/student-registration-form.po";
 import { Utils } from "./utils";
 import { StudentList } from "./page-objects/students-list.po";
 
 describe("workspace-project App", () => {
   let loginPage: LoginPage;
-  let addStudentPage: AddStudentPage;
+  let addStudentPage: StudentRegistrationForm;
 
   beforeEach(() => {
     loginPage = new LoginPage();
@@ -18,7 +18,7 @@ describe("workspace-project App", () => {
   });
 
   it("should add a new student and check that the student exists in the student list", async () => {
-    addStudentPage = new AddStudentPage();
+    addStudentPage = new StudentRegistrationForm();
     //go to adding Student via URL:
     addStudentPage.navigateTo();
     const student = {
@@ -27,7 +27,7 @@ describe("workspace-project App", () => {
       email: "asd12@dm.nl",
       phone: "+9121333333"
     };
-    addStudentPage.addUser(
+    addStudentPage.fillUserData(
       student.firstName,
       student.lastName,
       student.email,
