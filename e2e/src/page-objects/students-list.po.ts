@@ -1,11 +1,14 @@
 import { browser, by, element } from "protractor";
+import { BasePageObject } from "./base.po";
 
 export interface UserInfoModel {
   firstName: string;
   lastName: string;
 }
 
-export class StudentList {
+export class StudentList extends BasePageObject {
+  protected containerLocator = element(by.tagName("app-home"));
+
   private readonly usersList = element.all(by.css("tr[apphighlightstudent]"));
 
   navigateTo() {

@@ -1,6 +1,11 @@
 import { browser, by, element } from "protractor";
+import { BasePageObject } from "./base.po";
 
-export class AddStudentPage {
+export class AddStudentPage extends BasePageObject {
+  protected get containerLocator() {
+    return element(by.tagName("app-student-add"));
+  }
+
   private readonly firstNameControl = element(
     by.css("input[formcontrolname=first_name]")
   );
@@ -13,7 +18,6 @@ export class AddStudentPage {
   private readonly phoneControl = element(
     by.css("input[formcontrolname=phone]")
   );
-
   private readonly registerButton = element(by.css("button[type=submit]"));
 
   navigateTo() {

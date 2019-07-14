@@ -1,7 +1,7 @@
-import { LoginPage } from "./login.po";
-import { AddStudentPage } from "./add-student.po";
+import { LoginPage } from "./page-objects/login.po";
+import { AddStudentPage } from "./page-objects/add-student.po";
 import { Utils } from "./utils";
-import { StudentList } from "./students-list.po";
+import { StudentList } from "./page-objects/students-list.po";
 
 describe("workspace-project App", () => {
   let loginPage: LoginPage;
@@ -37,10 +37,10 @@ describe("workspace-project App", () => {
     //the page with student list is shown
     const studentList = new StudentList();
     const studentInfo = await studentList.findStudentByEmail(student.email);
-    //expect that added information is the same as entered:
+    //expect that the list of students contains a student with entered data:
     expect(studentInfo[1]).toEqual(student.firstName);
     expect(studentInfo[2].toEqual(student.lastName));
-    expect(studentInfo[3].toEqual(student.phone));
+    expect(studentInfo[4].toEqual(student.phone));
   });
   //const enabled = await addStudentPage.isRegisterButtonEnabled();
   //expect(addStudentPage.isRegisterButtonEnabled()).toBe(true);
