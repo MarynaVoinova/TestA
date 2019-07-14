@@ -3,13 +3,10 @@ import { BasePageObject } from './base.po';
 
 export class LoginPage extends BasePageObject {
   protected containerFinder = element(by.tagName('app-login'));
-  
+
   private readonly emailFormControlFinder = element(by.css('app-login input[formControlName=email]'));
   private readonly passwordFormControlFinder = element(by.css('app-login input[formControlName=password]'));
   private readonly loginButtonFinder = element(by.css('app-login button[type=submit]'));
-  private readonly toastComponentFinder = element(by.css('div[toast-component]'));
-  private readonly toastTitleBy = by.className('toast-title');
-  private readonly toastMessageBy = by.className('toast-message');
 
   navigateTo() {
     return browser.get('/login');
@@ -41,14 +38,6 @@ export class LoginPage extends BasePageObject {
     await this.typeEmail(email);
     await this.typePassword(password);
     await this.clickLogin();
-  }
-
-  async getToastMessage(): Promise<{ title: string, message: string }> {
-    const toastTitleFinder = this.toastComponentFinder.element(this.toastTitleBy);
-    const title = await this.getText(toastTitleFinder);
-    const toastMessageFinder = this.toastComponentFinder.element(this.toastMessageBy);
-    const message = await this.getText(toastMessageFinder);
-    return {title: title, message: message};
   }
 
   isLoginButtonEnabled(): Promise<boolean> {
