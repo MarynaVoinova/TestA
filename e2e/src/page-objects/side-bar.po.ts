@@ -2,7 +2,7 @@ import { browser, by, element, ExpectedConditions } from "protractor";
 import { BasePageObject } from "./base.po";
 
 export class SideBar extends BasePageObject {
-  protected containerLocator = element(by.id("#mySidebar"));
+  protected containerFinder = element(by.id("#mySidebar"));
   private allMenuItems = element(by.css("#mySidebar a"));
 
   async clickUserListMenu() {

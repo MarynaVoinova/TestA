@@ -2,7 +2,7 @@ import { browser, by, element } from "protractor";
 import { BasePageObject } from "./base.po";
 
 export class AddStudentPage extends BasePageObject {
-  protected get containerLocator() {
+  protected get containerFinder() {
     return element(by.tagName("app-student-add"));
   }
 

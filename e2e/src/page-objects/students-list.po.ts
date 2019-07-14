@@ -7,7 +7,7 @@ export interface UserInfoModel {
 }
 
 export class StudentList extends BasePageObject {
-  protected containerLocator = element(by.tagName("app-home"));
+  protected containerFinder = element(by.tagName("app-home"));
 
   private readonly usersList = element.all(by.css("tr[apphighlightstudent]"));
 

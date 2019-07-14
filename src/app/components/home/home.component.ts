@@ -13,7 +13,7 @@
 
  // Services
  import { routerTransition } from '../../services/config/config.service';
-
+  
  @Component({
  	selector: 'app-home',
  	templateUrl: './home.component.html',

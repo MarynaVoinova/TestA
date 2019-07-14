@@ -5,7 +5,7 @@ import { StudentList } from "./page-objects/students-list.po";
 import { SideBar } from "./page-objects/side-bar.po";
 import { browser } from "protractor";
 
-fdescribe("test side menu", () => {
+describe("test side menu", () => {
   let loginPage: LoginPage;
   let addStudentPage: AddStudentPage;
   let sideBar: SideBar;
