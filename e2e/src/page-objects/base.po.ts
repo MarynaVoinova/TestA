@@ -70,6 +70,7 @@ export abstract class BasePageObject {
 
   protected async typeText(finder: ElementFinder, text: string): Promise<void> {
     await this.waitUntilVisible(finder);
+    await finder.clear();
     await finder.sendKeys(text);
   }
 

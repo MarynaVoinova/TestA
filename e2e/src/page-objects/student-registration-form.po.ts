@@ -1,17 +1,17 @@
-import { browser, by, element } from "protractor";
-import { BasePageObject } from "./base.po";
+import { browser, by, element } from 'protractor';
+import { BasePageObject } from './base.po';
 
 export class StudentRegistrationForm extends BasePageObject {
-  protected containerFinder = element(by.tagName("app-student-add"));
+  protected containerFinder = element(by.tagName('app-student-add'));
 
-  private readonly firstNameFinder = element(by.css("input[formcontrolname=first_name]"));
-  private readonly lastNameFinder = element(by.css("input[formcontrolname=last_name]"));
-  private readonly emailFinder = element(by.css("input[formcontrolname=email]"));
-  private readonly phoneFinder = element(by.css("input[formcontrolname=phone]"));
-  private readonly registerButtonFinder = element(by.css("button[type=submit]"));
+  private readonly firstNameFinder = element(by.css('input[formcontrolname=first_name]'));
+  private readonly lastNameFinder = element(by.css('input[formcontrolname=last_name]'));
+  private readonly emailFinder = element(by.css('input[formcontrolname=email]'));
+  private readonly phoneFinder = element(by.css('input[formcontrolname=phone]'));
+  private readonly registerButtonFinder = element(by.css('button[type=submit]'));
 
   navigateTo() {
-    return browser.get("/add");
+    return browser.get('/add');
   }
 
   getFirstNameValidationMessage(): Promise<string> {
