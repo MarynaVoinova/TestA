@@ -1,7 +1,7 @@
 import { LoginPage } from "./page-objects/login.po";
 import { Toast } from './page-objects/toast.po';
 
-fdescribe('login page', () => {
+describe('login page', () => {
   let loginPage: LoginPage;
 
   beforeEach(async () => {

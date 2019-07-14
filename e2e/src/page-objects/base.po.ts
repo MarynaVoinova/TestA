@@ -5,21 +5,43 @@ import { ElementFinder, browser, ExpectedConditions } from "protractor";
  */
 export abstract class BasePageObject {
   /**
-   * page object container
+   * returns page object container finder
    */
   protected abstract get containerFinder(): ElementFinder;
   /**
-   * Checks that page object is present
+   * checks that page object is present
    */
   public async isPresent(): Promise<boolean> {
+    try {
+      await this.waitUntilPresent(this.containerFinder);
+    }
+    catch {
+      return false;
+    }
     return await browser.isElementPresent(this.containerFinder);
+  }
+
+  protected async hasClass(finder: ElementFinder, cssClass: string): Promise<boolean> {
+    const cssClasses = await finder.getAttribute('class');
+    if(!cssClasses) {
+      return false;
+    }
+    return !!cssClasses.split(' ').find(x => x === cssClass);
+  }
+
+  protected waitUntilPresent(finder: ElementFinder) {
+    return browser.wait(
+      ExpectedConditions.presenceOf(finder),
+      5000,
+      `Element ${finder.locator()} taking too long to be visible`
+    );
   }
 
   protected waitUntilVisible(finder: ElementFinder) {
     return browser.wait(
       ExpectedConditions.visibilityOf(finder),
       5000,
-      `Element ${finder} taking too long to be visible`
+      `Element ${finder.locator()} taking too long to be visible`
     );
   }
 
@@ -27,7 +49,7 @@ export abstract class BasePageObject {
     return browser.wait(
       ExpectedConditions.elementToBeClickable(finder),
       5000,
-      `Element ${finder} taking too long to be visible`
+      `Element ${finder.locator()} taking too long to be visible`
     );
   }
 
@@ -52,7 +74,12 @@ export abstract class BasePageObject {
   }
 
   protected async click(finder: ElementFinder): Promise<void> {
-    await this.waitUntilVisibleAndClickable(finder);
+    try {
+      await this.waitUntilVisibleAndClickable(finder);
+    }
+    catch {
+      console.log('error');
+    }
     await finder.click();
   }
 }
