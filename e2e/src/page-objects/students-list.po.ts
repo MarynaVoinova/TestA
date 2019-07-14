@@ -1,5 +1,5 @@
-import { browser, by, element } from "protractor";
-import { BasePageObject } from "./base.po";
+import { browser, by, element } from 'protractor';
+import { BasePageObject } from './base.po';
 
 export interface UserInfoModel {
   firstName: string;
@@ -7,22 +7,31 @@ export interface UserInfoModel {
 }
 
 export class StudentList extends BasePageObject {
-  protected containerFinder = element(by.tagName("app-student-list"));
+  protected containerFinder = element(by.tagName('app-student-list'));
 
-  private readonly usersList = element.all(by.css("tr[apphighlightstudent]"));
+  private readonly usersList = element.all(by.css('tr[apphighlightstudent]'));
+  private readonly addNewStudentButtonFinder = element(by.css('button[routerLink="/add"]'));
 
   navigateTo() {
-    return browser.get("/");
+    return browser.get('/');
   }
 
   getStudents() {
     return element
-      .all(by.tagName("tr"))
-      .map(x => x.all(by.tagName("td")).map(x => x.getText()));
+      .all(by.tagName('tr'))
+      .map(x => x.all(by.tagName('td')).map(x => x.getText()));
   }
 
   async findStudentByEmail(email: string) {
     const allStudents = await this.getStudents();
     return allStudents.find(x => x[3] == email);
+  }
+
+  async findStudent(email: string): Promise<any> {
+    return await element(by.xpath(`//td[4][contains(text(),"${email}")]/ancestor::tr`)).all(by.tagName('td')).map(x => x.getText());
+  }
+
+  clickAddNewStudentButton(): Promise<void> {
+    return this.click(this.addNewStudentButtonFinder);
   }
 }
