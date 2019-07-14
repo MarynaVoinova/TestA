@@ -3,6 +3,7 @@ import { BasePageObject } from './base.po';
 
 export class LoginPage extends BasePageObject {
   protected containerFinder = element(by.tagName('app-login'));
+  
   private readonly emailFormControlFinder = element(by.css('app-login input[formControlName=email]'));
   private readonly passwordFormControlFinder = element(by.css('app-login input[formControlName=password]'));
   private readonly loginButtonFinder = element(by.css('app-login button[type=submit]'));

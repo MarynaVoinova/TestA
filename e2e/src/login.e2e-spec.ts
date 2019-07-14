@@ -29,4 +29,11 @@ fdescribe('login page', () => {
     expect(toastMessage.title).toBe("Invalid Credentials");
     expect(toastMessage.message).toBe("Failed");
   });
+
+  it("should successfully login using right credentials", async () => {
+    await loginPage.login("admin@yopmail.com", "admin123");
+    const toastMessage = await loginPage.getToastMessage();
+    expect(toastMessage.title).toBe("Logged In Successfully");
+    expect(toastMessage.message).toBe("Success");
+  });
 });
