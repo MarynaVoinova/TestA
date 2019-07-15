@@ -8,9 +8,14 @@ exports.config = {
   specs: [
     './src/**/*.e2e-spec.ts'
   ],
-  capabilities: {
-    'browserName': 'chrome'
-  },
+  multiCapabilities: [{
+    'browserName': 'chrome',
+    shardTestFiles: true,
+    maxInstances: 3,
+    chromeOptions: {
+      args: ["--headless", "--window-size=1600x900"]
+  }
+  }],
   directConnect: true,
   baseUrl: 'http://localhost:4200/',
   framework: 'jasmine',
