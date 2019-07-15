@@ -3,6 +3,7 @@ import { StudentRegistrationForm } from './page-objects/student-registration-for
 import { StudentList } from './page-objects/students-list.po';
 import { SideBar } from './page-objects/side-bar.po';
 import { clearStorage } from './utils/browser-utils';
+import { browser } from 'protractor';
 
 describe('side bar menu', () => {
   let loginPage: LoginPage;
@@ -26,7 +27,8 @@ describe('side bar menu', () => {
     await sideBar.clickAddNewUserMenu();
     addStudentPage = new StudentRegistrationForm();
     // check if add student page is shown
-    expect(addStudentPage.isPresent()).toBeTruthy();
+    const isPresent = await addStudentPage.isPresent();
+    expect(isPresent).toBeTruthy();
     // check that menu item is selected
     expect(sideBar.isAddNewUserMenuSelected()).toBeTruthy();
   });

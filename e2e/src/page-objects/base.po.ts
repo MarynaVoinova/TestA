@@ -71,7 +71,6 @@ export abstract class BasePageObject {
       await this.waitUntilPresent(finder);
     }
     catch {
-      return false;
     }
 
     return await finder.isPresent();

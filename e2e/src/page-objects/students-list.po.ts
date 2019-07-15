@@ -48,7 +48,7 @@ export class StudentList extends BasePageObject {
   async findStudentOrTimeout(email: string): Promise<any> {
     await browser.wait(async x => {
       const s = await this.findStudent(email);
-      if (!s || s[1] === '' || s[2] === '' ) {
+      if (!s || s[1] === '' || s[2] === '' || s[3] === '' || s[4] === '') {
         return false;
       }
       return true;
