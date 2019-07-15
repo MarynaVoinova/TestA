@@ -2,17 +2,24 @@ import { LoginPage } from './page-objects/login.po';
 import { StudentRegistrationForm } from './page-objects/student-registration-form.po';
 import { StudentList } from './page-objects/students-list.po';
 import { SideBar } from './page-objects/side-bar.po';
+import { clearStorage } from './utils/browser-utils';
 
 describe('side bar menu', () => {
   let loginPage: LoginPage;
   let addStudentPage: StudentRegistrationForm;
   let sideBar: SideBar;
 
+  beforeEach(() => {});
+
   beforeAll(async () => {
     loginPage = new LoginPage();
     sideBar = new SideBar();
-    loginPage.navigateTo();
+    await loginPage.navigateTo();
     await loginPage.login('admin@yopmail.com', 'admin123');
+  });
+
+  afterAll(async () => {
+    await clearStorage();
   });
 
   it('should navigate to student registration', async () => {

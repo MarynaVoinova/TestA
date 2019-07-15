@@ -1,7 +1,8 @@
 import { LoginPage } from './page-objects/login.po';
 import { StudentRegistrationForm } from './page-objects/student-registration-form.po';
 import { StudentList } from './page-objects/students-list.po';
-import { browser, ExpectedConditions } from 'protractor';
+import { browser } from 'protractor';
+import { clearStorage } from './utils/browser-utils';
 
 describe('student list', () => {
   let loginPage: LoginPage;
@@ -14,6 +15,10 @@ describe('student list', () => {
     await loginPage.login('admin@yopmail.com', 'admin123');
     addStudentPage = new StudentRegistrationForm();
     studentListPage = new StudentList();
+  });
+
+  afterAll(async () => {
+    await clearStorage();
   });
 
   it('should register and delete a new student', async () => {

@@ -2,6 +2,7 @@ import { LoginPage } from './page-objects/login.po';
 import { StudentRegistrationForm } from './page-objects/student-registration-form.po';
 import { Toast } from './page-objects/toast.po';
 import { StudentList } from './page-objects/students-list.po';
+import { clearStorage } from './utils/browser-utils';
 
 describe('student registration', () => {
   let loginPage: LoginPage;
@@ -12,6 +13,10 @@ describe('student registration', () => {
     loginPage.navigateTo();
     await loginPage.login('admin@yopmail.com', 'admin123');
     addStudentPage = new StudentRegistrationForm();
+  });
+
+  afterAll(async () => {
+    await clearStorage();
   });
 
   beforeEach(async () => {

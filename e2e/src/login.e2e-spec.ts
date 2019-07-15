@@ -1,12 +1,17 @@
 import { LoginPage } from "./page-objects/login.po";
 import { Toast } from './page-objects/toast.po';
+import { clearStorage } from './utils/browser-utils';
 
 describe('login page', () => {
   let loginPage: LoginPage;
 
   beforeEach(async () => {
     loginPage = new LoginPage();
-    loginPage.navigateTo();
+    await loginPage.navigateTo();
+  });
+
+  afterAll(async () => {
+    await clearStorage();
   });
 
   it('should show validation message for email when email format is invalid', async () => {

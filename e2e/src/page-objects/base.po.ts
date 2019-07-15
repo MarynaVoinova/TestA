@@ -73,7 +73,7 @@ export abstract class BasePageObject {
     catch {
       return false;
     }
-    
+      
     return await finder.isPresent();
   }
 

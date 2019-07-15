@@ -2,7 +2,7 @@ import { by, element, ElementFinder } from 'protractor';
 import { BasePageObject } from './base.po';
 
 export class SideBar extends BasePageObject {
-  protected containerFinder = element(by.id('#mySidebar'));
+  protected containerFinder = element(by.id('mySidebar'));
   private readonly userListMenuFinder = element(by.css('#mySidebar > a[routerLink="/"]'));
   private readonly addNewUserMenu = element(by.css('#mySidebar > a[routerLink="/add"]'));
 
