@@ -21,6 +21,18 @@ describe('student list', () => {
     await clearStorage();
   });
 
+  it('should search for student', async () => {
+    await studentListPage.navigateTo();
+    let students = await studentListPage.getStudents();
+    expect(students.length).toBe(5);
+
+    // search for Peter
+    await studentListPage.typeSearch('Peter');
+    students = await studentListPage.getStudents();
+    expect(students.length).toBe(1);
+    expect(students[0][1]).toBe('Peter');
+  });
+
   it('should register and delete a new student', async () => {
     const student = {
       firstName: 'Mopa',

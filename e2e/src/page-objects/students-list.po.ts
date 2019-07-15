@@ -9,17 +9,22 @@ export interface UserInfoModel {
 export class StudentList extends BasePageObject {
   protected containerFinder = element(by.tagName('app-student-list'));
 
-  private readonly usersList = element.all(by.css('tr[apphighlightstudent]'));
   private readonly addNewStudentButtonFinder = element(by.css('button[routerLink="/add"]'));
+  private readonly searchInputFinder = element(by.css('app-student-list > div > span > input'));
 
   navigateTo() {
     return browser.get('/');
   }
 
-  getStudents() {
-    return element
+  async getStudents() {
+    const data = await element
       .all(by.tagName('tr'))
       .map(x => x.all(by.tagName('td')).map(x => x.getText()));
+    return data.slice(1);
+  }
+
+  typeSearch(text: string) {
+    return this.typeText(this.searchInputFinder, text);
   }
 
   async findStudentByEmail(email: string) {
