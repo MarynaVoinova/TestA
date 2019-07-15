@@ -7,7 +7,7 @@ export abstract class BasePageObject {
   /**
    * default timeout in milliseconds
    */
-  private readonly defaultTimeout = 5000;
+  protected readonly defaultTimeout = 5000;
   /**
    * returns page object container finder
    */
@@ -73,7 +73,7 @@ export abstract class BasePageObject {
     catch {
       return false;
     }
-      
+
     return await finder.isPresent();
   }
 

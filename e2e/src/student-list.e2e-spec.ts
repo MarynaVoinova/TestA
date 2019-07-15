@@ -1,7 +1,6 @@
 import { LoginPage } from './page-objects/login.po';
 import { StudentRegistrationForm } from './page-objects/student-registration-form.po';
 import { StudentList } from './page-objects/students-list.po';
-import { browser } from 'protractor';
 import { clearStorage } from './utils/browser-utils';
 
 describe('student list', () => {
@@ -33,6 +32,18 @@ describe('student list', () => {
     expect(students[0][1]).toBe('Peter');
   });
 
+  it('should delete student', async () => {
+    await studentListPage.navigateTo();
+    let studentExists = !!(await studentListPage.findStudentOrTimeout('peter@yopmail.com'));
+    expect(studentExists).toBeTruthy();
+
+    await studentListPage.deleteStudent('peter@yopmail.com');
+    await studentListPage.confirm();
+
+    studentExists = !!(await studentListPage.findStudent('peter@yopmail.com'));
+    expect(studentExists).toBeFalsy();
+  });
+
   it('should register and delete a new student', async () => {
     const student = {
       firstName: 'Mopa',
@@ -44,7 +55,7 @@ describe('student list', () => {
     await studentListPage.navigateTo();
 
     // check that new student is not registered yet
-    let studentExists = !!(await studentListPage.findStudentByEmail(student.email));
+    let studentExists = !!(await studentListPage.findStudent(student.email));
     expect(studentExists).toBeFalsy();
 
     // go to registration form
@@ -57,8 +68,7 @@ describe('student list', () => {
     expect(studentListPage.isPresent()).toBeTruthy();
 
     // check that newly registered student is in the list
-    await browser.sleep(1000);
-    const studentInfo = await studentListPage.findStudent(student.email);
+    const studentInfo = await studentListPage.findStudentOrTimeout(student.email);
 
     //expect that the list of students contains a student with entered data:
     expect(studentInfo[1]).toEqual(student.firstName);
@@ -71,7 +81,7 @@ describe('student list', () => {
     await studentListPage.confirm();
 
     // check that new student is not in the list anymore
-    studentExists = !!(await studentListPage.findStudentByEmail(student.email));
+    studentExists = !!(await studentListPage.findStudent(student.email));
     expect(studentExists).toBeFalsy();
   });
 });

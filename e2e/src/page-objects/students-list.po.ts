@@ -37,7 +37,24 @@ export class StudentList extends BasePageObject {
   }
 
   async findStudent(email: string): Promise<any> {
-    return await element(by.xpath(`//td[4][contains(text(),"${email}")]/ancestor::tr`)).all(by.tagName('td')).map(x => x.getText());
+    try {
+      return await element(by.xpath(`//td[4][contains(text(),"${email}")]/ancestor::tr`)).all(by.tagName('td')).map(x => x.getText());
+    }
+    catch(error) {
+      return null;
+    }
+  }
+
+  async findStudentOrTimeout(email: string): Promise<any> {
+    await browser.wait(async x => {
+      const s = await this.findStudent(email);
+      if (!s || s[1] === '' || s[2] === '' ) {
+        return false;
+      }
+      return true;
+    }, this.defaultTimeout);
+
+    return await this.findStudent(email);
   }
 
   async deleteStudent(email: string): Promise<any> {
