@@ -27,8 +27,17 @@ export class StudentList extends BasePageObject {
     return allStudents.find(x => x[3] == email);
   }
 
+  async studentExists(email: string): Promise<any> {
+    return await this.isElementPresent(element(by.xpath(`//td[4][contains(text(),"${email}")]`)));
+  }
+
   async findStudent(email: string): Promise<any> {
     return await element(by.xpath(`//td[4][contains(text(),"${email}")]/ancestor::tr`)).all(by.tagName('td')).map(x => x.getText());
+  }
+
+  async deleteStudent(email: string): Promise<any> {
+    const deleteButton = await element(by.xpath(`//td[4][contains(text(),"${email}")]/ancestor::tr/td/button[contains(text(),"Delete")]`));
+    return await this.click(deleteButton);
   }
 
   clickAddNewStudentButton(): Promise<void> {

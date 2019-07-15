@@ -1,9 +1,9 @@
 import { LoginPage } from './page-objects/login.po';
 import { StudentRegistrationForm } from './page-objects/student-registration-form.po';
 import { StudentList } from './page-objects/students-list.po';
-import { browser } from 'protractor';
+import { browser, ExpectedConditions } from 'protractor';
 
-fdescribe('student list', () => {
+describe('student list', () => {
   let loginPage: LoginPage;
   let addStudentPage: StudentRegistrationForm;
   let studentListPage: StudentList;
@@ -16,7 +16,7 @@ fdescribe('student list', () => {
     studentListPage = new StudentList();
   });
 
-  fit('should register and delete a new student', async () => {
+  it('should register and delete a new student', async () => {
     const student = {
       firstName: 'Mopa',
       lastName: 'PolaL',
@@ -27,7 +27,7 @@ fdescribe('student list', () => {
     await studentListPage.navigateTo();
 
     // check that new student is not registered yet
-    const studentExists = !!(await studentListPage.findStudentByEmail(student.email));
+    let studentExists = !!(await studentListPage.findStudentByEmail(student.email));
     expect(studentExists).toBeFalsy();
 
     // go to registration form
@@ -46,6 +46,15 @@ fdescribe('student list', () => {
     //expect that the list of students contains a student with entered data:
     expect(studentInfo[1]).toEqual(student.firstName);
     expect(studentInfo[2]).toEqual(student.lastName);
+    // country code is added automatically, so we take it into account
     expect(studentInfo[4]).toEqual('+91-' + student.phone);
+
+    // delete newly registered student
+    await studentListPage.deleteStudent(student.email);
+    await studentListPage.confirm();
+
+    // check that new student is not in the list anymore
+    studentExists = !!(await studentListPage.findStudentByEmail(student.email));
+    expect(studentExists).toBeFalsy();
   });
 });

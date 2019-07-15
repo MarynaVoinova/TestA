@@ -5,20 +5,18 @@ import { ElementFinder, browser, ExpectedConditions } from "protractor";
  */
 export abstract class BasePageObject {
   /**
+   * default timeout in milliseconds
+   */
+  private readonly defaultTimeout = 5000;
+  /**
    * returns page object container finder
    */
   protected abstract get containerFinder(): ElementFinder;
   /**
    * checks that page object is present
    */
-  public async isPresent(): Promise<boolean> {
-    try {
-      await this.waitUntilPresent(this.containerFinder);
-    }
-    catch {
-      return false;
-    }
-    return await browser.isElementPresent(this.containerFinder);
+  public isPresent(): Promise<boolean> {
+    return this.isElementPresent(this.containerFinder);
   }
 
   protected async hasClass(finder: ElementFinder, cssClass: string): Promise<boolean> {
@@ -32,7 +30,7 @@ export abstract class BasePageObject {
   protected waitUntilPresent(finder: ElementFinder) {
     return browser.wait(
       ExpectedConditions.presenceOf(finder),
-      5000,
+      this.defaultTimeout,
       `Element ${finder.locator()} taking too long to be visible`
     );
   }
@@ -40,7 +38,7 @@ export abstract class BasePageObject {
   protected waitUntilVisible(finder: ElementFinder) {
     return browser.wait(
       ExpectedConditions.visibilityOf(finder),
-      5000,
+      this.defaultTimeout,
       `Element ${finder.locator()} taking too long to be visible`
     );
   }
@@ -48,7 +46,7 @@ export abstract class BasePageObject {
   protected waitUntilClickable(finder: ElementFinder) {
     return browser.wait(
       ExpectedConditions.elementToBeClickable(finder),
-      5000,
+      this.defaultTimeout,
       `Element ${finder.locator()} taking too long to be visible`
     );
   }
@@ -68,6 +66,17 @@ export abstract class BasePageObject {
     return await finder.isEnabled();
   }
 
+  protected async isElementPresent(finder: ElementFinder): Promise<boolean> {
+    try {
+      await this.waitUntilPresent(finder);
+    }
+    catch {
+      return false;
+    }
+    
+    return await finder.isPresent();
+  }
+
   protected async typeText(finder: ElementFinder, text: string): Promise<void> {
     await this.waitUntilVisible(finder);
     await finder.clear();
@@ -82,5 +91,10 @@ export abstract class BasePageObject {
       console.log('error');
     }
     await finder.click();
+  }
+
+  public async confirm(): Promise<void> {
+    await browser.wait(ExpectedConditions.alertIsPresent, this.defaultTimeout);
+    return await browser.switchTo().alert().accept();
   }
 }
